@@ -307,7 +307,7 @@ class AIWorker(QObject):
 
     def __init__(self, api_key):
         super().__init__()
-        self.client = OpenAI(api_key="sk-1b0f815baa9d4f499542fbc36ef2e37b", base_url="https://api.deepseek.com")
+        self.client = OpenAI(api_key="yours AIP of deepseek-R1", base_url="https://api.deepseek.com")
 
 
 
