@@ -16,7 +16,7 @@ from openai import OpenAI
 import re
 from functools import partial
 
-# ------------------ 高端扁平化QSS方案（推荐！） ------------------
+# ------------------ 高端扁平化QSS方案 -----------------------
 highend_qss = """
 
 2
@@ -1085,7 +1085,7 @@ class MainWindow(QMainWindow):
         self.layout.addWidget(self.size_label)
         self.layout.addWidget(self.result_label)
 
-        # ================== 新增代码：创建分析数据面板 ==================
+        # ================== 分析数据面板 ==================
         # 创建右侧分析数据面板
         self.info_panel = QDockWidget("Data Analysis", self)
         self.info_text = QTextEdit()
