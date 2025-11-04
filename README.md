@@ -117,7 +117,16 @@ The system supports the following commands via AI Assistant or text input:
 If you find SpinalSAM-R1 helpful, please cite our paper:
 
 ```bibtex
-
+@misc{liu2025spinalsamr1visionlanguagemultimodalinteractive,
+      title={SpinalSAM-R1: A Vision-Language Multimodal Interactive System for Spine CT Segmentation}, 
+      author={Jiaming Liu and Dingwei Fan and Junyong Zhao and Chunlin Li and Haipeng Si and Liang Sun},
+      year={2025},
+      eprint={2511.00095},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2511.00095}, 
+}
+```
 ```
 
 ---
