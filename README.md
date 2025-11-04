@@ -127,7 +127,7 @@ If you find SpinalSAM-R1 helpful, please cite our paper:
       url={https://arxiv.org/abs/2511.00095}, 
 }
 ```
-```
+
 
 ---
 
