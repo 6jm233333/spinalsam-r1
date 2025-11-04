@@ -80,15 +80,15 @@ The system dynamically integrates DeepSeek-R1 for semantic command parsing, enab
 
 ## Evaluation
 
-| Method              | Dice Coefficient (DC) | Intersection over Union (IoU) | Mean Surface Distance (MSD) mm | 95% Hausdorff Distance (HD95) mm |
+
+| Method              | Dice Coefficient (DC)↑ | Intersection over Union (IoU)↑ | Mean Surface Distance (MSD)↓ mm | 95% Hausdorff Distance (HD95)↓ mm |
 |---------------------|-----------------------|------------------------------|-------------------------------|----------------------------------|
-| U-Net               | 0.8675 ± 0.0434       | 0.7725 ± 0.0576              | 3.25 ± 2.68                   | 10.81 ± 12.21                    |
-| TransUNet           | 0.8814 ± 0.0434       | 0.7932 ± 0.0650              | 4.00 ± 4.47                   | 11.70 ± 15.21                    |
-| Swin-UNet           | 0.8930 ± 0.0261       | 0.8106 ± 0.0395              | 2.55 ± 1.03                   | 7.55 ± 4.37                     |
-| SAM-Med2D box-tight | 0.9045 ± 0.0271       | 0.8299 ± 0.0420              | 1.72 ± 0.54                   | 4.46 ± 1.67                     |
-| SAM-Med2D point5     | 0.9013 ± 0.0251       | 0.8239 ± 0.0381              | 2.29 ± 1.24                   | 7.04 ± 4.95                     |
-| SAM-Med2D mask       | 0.8996 ± 0.0258       | 0.8211 ± 0.0388              | 1.84 ± 0.68                   | 5.49 ± 3.33                     |
-| **SpinalSAM-R1 (Ours)**   | **0.9225 ± 0.0674**       | **0.8949 ± 0.0420**              | **1.69 ± 0.41**                   | **4.21 ± 2.73**                     |
+| U-Net               | 0.8700 ± 0.0144\*       | 0.7861 ± 0.0238              | 3.25 ± 1.43                   | 23.05 ± 12.05                    |
+| TransUNet           | 0.9335 ± 0.0002\*       | 0.9113 ± 0.0005\*            | 1.92 ± 0.06\*                 | 5.58 ± 2.01\*                    |
+| Swin-UNet           | 0.8863 ± 0.0016\*       | 0.9097 ± 0.0012\*            | 3.64 ± 1.37\*                 | 4.79 ± 0.02\*                    |
+| SAM-Med2D(Box)      | 0.9316 ± 0.0012\*       | 0.8738 ± 0.0031\*            | 2.25 ± 0.54\*                 | 6.14 ± 1.41\*                    |
+| SAM-Med2D(Point)    | 0.9329 ± 0.0011\*       | 0.8760 ± 0.0029\*            | 2.21 ± 0.53\*                 | 6.08 ± 4.95\*                    |
+| **SpinalSAM-R1 (Ours)**   | **0.9532 ± 0.0005**       | **0.9114 ± 0.0015**              | **1.81 ± 0.50**                   | **5.47 ± 0.73**                    |
 
 *Shows statistically significant improvements over baselines.*
 
