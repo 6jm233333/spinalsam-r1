@@ -5,18 +5,19 @@
 
 ## Overview
 
-**SpinalSAM-R1** is a novel multimodal interactive system that combines a fine-tuned Segment Anything Model (SAM) enhanced with anatomical attention and Low-Rank Adaptation (LoRA) techniques, integrated with the DeepSeek-R1 large language model for natural language-driven spine CT image segmentation. This system empowers clinicians with precise, efficient, and intuitive spinal segmentation through points, bounding boxes, or natural language commands.
+
+**SpinalSAM-R1** is a novel multimodal interactive system that combines a fine-tuned Segment Anything Model (SAM) enhanced with anatomical attention and Low-Rank Adaptation (LoRA) techniques, integrated with the DeepSeek-R1 large language model for natural language-driven spine CT image segmentation.  This system empowers clinicians with precise, efficient, and intuitive spinal segmentation through points, bounding boxes, or natural language commands.
 
 ---
 
 ## Features
 
-- **Feature-enhanced SAM backbone**: Incorporates Convolutional Block Attention Module (CBAM) and LoRA fine-tuning to improve segmentation accuracy on challenging spinal CT images.
-- **Multimodal interaction**: Supports point, box, and text-based prompts for flexible and natural segmentation refinement.
-- **Natural language commands**: Integrates DeepSeek-R1 for parsing clinical instructions into segmentation prompts with 94.3% parsing accuracy.
-- **Real-time performance**: Achieves sub-200 ms rendering latency and overall sub-800 ms response times for seamless clinical workflows.
-- **Cross-platform GUI**: Developed with PyQt5 providing user-friendly interface for visualization, annotation, and interactive command parsing.
-- **Comprehensive evaluation**: Outperforms state-of-the-art methods (U-Net, TransUNet, SAM-Med2D) on multiple segmentation metrics including Dice, IoU, MSD, and HD95.
+- **Feature-Enhanced SAM Backbone**: Incorporates a Convolutional Block Attention Module (CBAM) and LoRA fine-tuning on the ViT-H architecture to improve segmentation accuracy on complex spinal CT images while avoiding overfitting.
+- **Multimodal Interaction**: Supports point, box, and text-based prompts for flexible and natural segmentation refinement.
+- **Natural Language Commands**: Integrates DeepSeek-R1 for parsing clinical instructions into structured segmentation prompts, supporting 11 clinical operation types with a 94.3% parsing accuracy.
+- **Real-Time Performance**: Optimized with ONNX Runtime, achieving 250–300 ms inference latency per slice on consumer-grade hardware (RTX 4060 Laptop), with overall system response times under 800 ms.
+- **Cross-Platform GUI**: Developed with PyQt5, providing a user-friendly interface for high-resolution visualization, manual annotation, and interactive command parsing.
+- **Robust Generalization**: Rigorously validated on both an internal clinical dataset (120 lumbar CT scans) and the multi-center external VerSe dataset, outperforming state-of-the-art networks and generalist LVLM pipelines (e.g., Qwen3-VL + SAM).
 
 ---
 
@@ -40,15 +41,18 @@ OpenAI 1.65.4
 ### Clone the repository
 
 ```bash
-git clone https://github.com/6jm233333/spinalsam-r1.git
+git clone [https://github.com/6jm233333/spinalsam-r1.git](https://github.com/6jm233333/spinalsam-r1.git)
 cd spinalsam-r1
 ```
+
+
 
 ### Download pretrained models
 
 Place the fine-tuned SAM checkpoint (e.g., `Medsam_best.pth`) into the `/models` directory.
 
-SAM checkpoint: https://pan.baidu.com/s/13vUpCgdVEtXdiCntuGIV6A?pwd=2hek
+- **SAM checkpoint**: [Baidu Disk Link](https://pan.baidu.com/s/13vUpCgdVEtXdiCntuGIV6A?pwd=2hek)
+
 
 
 ### Run the GUI application
@@ -57,40 +61,59 @@ SAM checkpoint: https://pan.baidu.com/s/13vUpCgdVEtXdiCntuGIV6A?pwd=2hek
 python main.py
 ```
 
-### Features
 
-- Load spine CT images (`png`, `jpg`, `jpeg`).
-- Add coordinate points or boxes interactively.
-- Generate segmentation masks from points or boxes.
-- Use natural language commands (e.g., "Add three points", "Generate point mask") via built-in AI assistant.
-- View segmentation results and evaluation metrics inline.
+### Interface Capabilities
+
+- **Load Data**: Open spine CT images (`png`, `jpg`, `jpeg`).
+- **Manual Annotation**: Add coordinate points or bounding boxes interactively.
+- **Generate Masks**: Create segmentation masks from provided points or boxes.
+- **AI Assistant**: Use natural language commands (e.g., *"Add three points"*, *"Generate point mask"*) via the built-in DeepSeek-R1 parser.
+- **Real-Time Feedback**: View segmentation results and quantitative evaluation metrics directly inline.
+
 
 ---
 
+
 ## Model Architecture
 
-Our model fine-tunes the original SAM (ViT-H backbone) with:
+Our framework is a slice-based 2D segmentation system prioritizing computational efficiency. It fine-tunes the original SAM (ViT-H backbone) using:
 
-- **CBAM Attention Modules**: Enhance feature extraction focused on vertebral edges and anatomical regions.
-- **Low-Rank Adaptation (LoRA)**: Parameter-efficient fine-tuning enabling effective domain adaptation with fewer trainable parameters.
+- **CBAM Attention Modules**: Sequentially applies channel and spatial attention to 2D-reshaped feature maps to enhance vertebral boundaries and salient anatomical regions.
+- **Low-Rank Adaptation (LoRA)**: Parameter-efficient fine-tuning that updates only a fraction of parameters, retaining generalization while adapting to spinal CT characteristics.
 
-The system dynamically integrates DeepSeek-R1 for semantic command parsing, enabling interactive segmentation driven by natural language.
+The system dynamically integrates **DeepSeek-R1** in the business logic layer for semantic command parsing, enabling an intuitive, closed-loop workflow driven by natural language.
 
 ---
 
 ## Evaluation
 
+### Internal Clinical Dataset
 
-| Method              | Dice Coefficient (DC)↑ | Intersection over Union (IoU)↑ | Mean Surface Distance (MSD)↓ mm | 95% Hausdorff Distance (HD95)↓ mm |
-|---------------------|-----------------------|------------------------------|-------------------------------|----------------------------------|
-| U-Net               | 0.8700 ± 0.0144\*       | 0.7861 ± 0.0238              | 3.25 ± 1.43                   | 23.05 ± 12.05                    |
-| TransUNet           | 0.9335 ± 0.0002\*       | 0.9113 ± 0.0005\*            | 1.92 ± 0.06\*                 | 5.58 ± 2.01\*                    |
-| Swin-UNet           | 0.8863 ± 0.0016\*       | 0.9097 ± 0.0012\*            | 3.64 ± 1.37\*                 | 4.79 ± 0.02\*                    |
-| SAM-Med2D(Box)      | 0.9316 ± 0.0012\*       | 0.8738 ± 0.0031\*            | 2.25 ± 0.54\*                 | 6.14 ± 1.41\*                    |
-| SAM-Med2D(Point)    | 0.9329 ± 0.0011\*       | 0.8760 ± 0.0029\*            | 2.21 ± 0.53\*                 | 6.08 ± 4.95\*                    |
-| **SpinalSAM-R1 (Ours)**   | **0.9532 ± 0.0005**       | **0.9114 ± 0.0015**              | **1.81 ± 0.50**                   | **5.47 ± 0.73**                    |
+Performance on 120 lumbar CT scans from Shandong University Qilu Hospital:
 
-*Shows statistically significant improvements over baselines.*
+
+| **Method**              | **Dice Coefficient (DC)↑** | **Intersection over Union (IoU)↑** | **Mean Surface Distance (MSD)↓** | **95% Hausdorff Distance (HD95)↓** |
+| ----------------------- | -------------------------- | ---------------------------------- | -------------------------------- | ---------------------------------- |
+| U-Net                   | 0.8700 ± 0.0144*           | 0.7861 ± 0.0238*                   | 3.25 ± 1.43*                     | 23.05 ± 12.05*                     |
+| TransUNet               | 0.9335 ± 0.0002*           | 0.9113 ± 0.0005*                   | 1.92 ± 0.06*                     | 5.58 ± 2.01*                       |
+| Swin-UNet               | 0.8863 ± 0.0016*           | 0.9097 ± 0.0012*                   | 3.64 ± 1.37*                     | 4.79 ± 0.02*                       |
+| SAM-Med2D(Box)          | 0.9316 ± 0.0012*           | 0.8738 ± 0.0031*                   | 2.25 ± 0.54*                     | 6.14 ± 1.41*                       |
+| SAM-Med2D(Point)        | 0.9329 ± 0.0011*           | 0.8760 ± 0.0029*                   | 2.21 ± 0.53*                     | 6.08 ± 4.95*                       |
+| **SpinalSAM-R1 (Ours)** | **0.9532 ± 0.0005**        | **0.9114 ± 0.0015**                | **1.81 ± 0.50**                  | **5.47 ± 0.73**                    |
+
+** Shows statistically significant improvements over baselines (p < 0.05).*
+
+
+### External Validation (VerSe Dataset)
+
+Zero-shot generalization performance on the multi-center Large Scale Vertebrae Segmentation dataset:
+
+| **Method**              | **DC↑**             | **IoU↑**            | **MSD↓**         | **HD95↓**         |
+| ----------------------- | ------------------- | ------------------- | ---------------- | ----------------- |
+| TransUNet               | 0.7012 ± 0.0514*    | 0.6288 ± 0.0411*    | 21.33 ± 4.12*    | 62.45 ± 5.18*     |
+| Qwen3-VL + SAM          | 0.7314 ± 0.1050*    | 0.6274 ± 0.1190*    | 16.56 ± 7.92*    | 58.45 ± 15.22*    |
+| **SpinalSAM-R1 (Ours)** | **0.7650 ± 0.1641** | **0.6415 ± 0.1688** | **14.41 ± 5.79** | **55.72 ± 21.40** |
+
 
 ---
 
@@ -124,7 +147,7 @@ If you find SpinalSAM-R1 helpful, please cite our paper:
       eprint={2511.00095},
       archivePrefix={arXiv},
       primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2511.00095}, 
+      url={[https://arxiv.org/abs/2511.00095](https://arxiv.org/abs/2511.00095)}, 
 }
 ```
 
@@ -134,15 +157,13 @@ If you find SpinalSAM-R1 helpful, please cite our paper:
 ## Contact
 
 For questions or contributions, please open an issue or contact us via email:  
-- Haipeng Si (sihaipeng1978@email.sdu.edu.cn)  
 - Liang Sun (sunl@nuaa.edu.cn)
 
 ---
 
 ## Acknowledgments
 
-Thanks to the developers of SAM, DeepSeek-R1, PyQt5, and open-source contributors.
-
+Thanks to the developers of SAM, DeepSeek-R1, PyQt5, and open-source contributors. This work was supported in part by the National Natural Science Foundation of China.
 ---
 
 *Enjoy using SpinalSAM-R1!*  
