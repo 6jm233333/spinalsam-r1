@@ -99,6 +99,7 @@ Performance on 120 lumbar CT scans from Shandong University Qilu Hospital:
 | Swin-UNet               | 0.8863 ± 0.0016*           | 0.9097 ± 0.0012*                   | 3.64 ± 1.37*                     | 4.79 ± 0.02*                       |
 | SAM-Med2D(Box)          | 0.9316 ± 0.0012*           | 0.8738 ± 0.0031*                   | 2.25 ± 0.54*                     | 6.14 ± 1.41*                       |
 | SAM-Med2D(Point)        | 0.9329 ± 0.0011*           | 0.8760 ± 0.0029*                   | 2.21 ± 0.53*                     | 6.08 ± 4.95*                       |
+| Qwen3-VL + SAM          | 0.9459 ± 0.0050*           | 0.8974 ± 0.0090*                   | 2.15 ± 0.85*                     | 5.56 ± 0.92*                       |
 | **SpinalSAM-R1 (Ours)** | **0.9532 ± 0.0005**        | **0.9114 ± 0.0015**                | **1.81 ± 0.50**                  | **5.47 ± 0.73**                    |
 
 ** Shows statistically significant improvements over baselines (p < 0.05).*
