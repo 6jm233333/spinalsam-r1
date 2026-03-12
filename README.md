@@ -1,4 +1,3 @@
-```markdown
 # SpinalSAM-R1
 
 ## Overview
@@ -41,14 +40,12 @@ This system empowers clinicians with precise, efficient, and intuitive spinal se
 ```bash
 git clone [https://github.com/6jm233333/spinalsam-r1.git](https://github.com/6jm233333/spinalsam-r1.git)
 cd spinalsam-r1
-
 ```
 
 ### Run the GUI application
 
 ```bash
 python main.py
-
 ```
 
 ### Interface Capabilities
@@ -78,13 +75,13 @@ The system dynamically integrates **DeepSeek-R1** in the business logic layer fo
 
 Performance on 120 lumbar CT scans (31,454 slices) from Shandong University Qilu Hospital:
 
-| Method | Dice (DC)↑ | IoU↑ | MSD↓ | HD95↓ |
-| --- | --- | --- | --- | --- |
-| U-Net | 0.8701 ± 0.0152* | 0.7847 ± 0.0261* | 3.35 ± 1.65* | 23.18 ± 12.81* |
-| TransUNet | 0.9327 ± 0.0002* | 0.9097 ± 0.0006* | 1.88 ± 0.06* | 5.66 ± 2.27* |
-| Swin-UNet | 0.8847 ± 0.0019* | 0.9104 ± 0.0013* | 3.75 ± 1.58* | 4.81 ± 0.02* |
-| SAM-Med2D (Box) | 0.9329 ± 0.0013* | 0.8717 ± 0.0033* | 2.37 ± 0.62* | 6.25 ± 1.63* |
-| SAM-Med2D (Point) | 0.9325 ± 0.0014* | 0.8750 ± 0.0034* | 2.33 ± 0.61* | 6.20 ± 5.63* |
+| Method                  | Dice (DC)↑          | IoU↑                | MSD↓            | HD95↓           |
+| ----------------------- | ------------------- | ------------------- | --------------- | --------------- |
+| U-Net                   | 0.8701 ± 0.0152*    | 0.7847 ± 0.0261*    | 3.35 ± 1.65*    | 23.18 ± 12.81*  |
+| TransUNet               | 0.9327 ± 0.0002*    | 0.9097 ± 0.0006*    | 1.88 ± 0.06*    | 5.66 ± 2.27*    |
+| Swin-UNet               | 0.8847 ± 0.0019*    | 0.9104 ± 0.0013*    | 3.75 ± 1.58*    | 4.81 ± 0.02*    |
+| SAM-Med2D (Box)         | 0.9329 ± 0.0013*    | 0.8717 ± 0.0033*    | 2.37 ± 0.62*    | 6.25 ± 1.63*    |
+| SAM-Med2D (Point)       | 0.9325 ± 0.0014*    | 0.8750 ± 0.0034*    | 2.33 ± 0.61*    | 6.20 ± 5.63*    |
 | **SpinalSAM-R1 (Ours)** | **0.9535 ± 0.0005** | **0.9098 ± 0.0017** | **1.78 ± 0.54** | **5.44 ± 0.80** |
 
 ** Shows statistically significant improvements over baselines (p < 0.05).*
@@ -95,14 +92,14 @@ Performance on 120 lumbar CT scans (31,454 slices) from Shandong University Qilu
 
 Zero-shot generalization performance on the multi-center VerSe dataset:
 
-| Method | DC↑ | IoU↑ | MSD↓ | HD95↓ |
-| --- | --- | --- | --- | --- |
-| U-Net | 0.5804 ± 0.0386* | 0.4099 ± 0.0392* | 39.08 ± 3.69* | 78.53 ± 7.55* |
-| TransUNet | 0.7012 ± 0.0514* | 0.6288 ± 0.0411* | 21.33 ± 4.12* | 62.45 ± 5.18* |
-| Swin-UNet | 0.6940 ± 0.0822* | 0.6380 ± 0.0469* | 24.59 ± 3.54* | 68.29 ± 4.83* |
-| SAM-Med2D (Box) | 0.7125 ± 0.1245* | 0.6110 ± 0.1320* | 18.25 ± 6.44* | 60.14 ± 12.41* |
-| SAM-Med2D (Point) | 0.7088 ± 0.1311* | 0.6045 ± 0.1385* | 19.01 ± 7.12* | 61.08 ± 13.95* |
-| Qwen3-VL + SAM | 0.7314 ± 0.1050* | 0.6274 ± 0.1190* | 16.56 ± 7.92* | 58.45 ± 15.22* |
+| Method                  | DC↑                 | IoU↑                | MSD↓             | HD95↓             |
+| ----------------------- | ------------------- | ------------------- | ---------------- | ----------------- |
+| U-Net                   | 0.5804 ± 0.0386*    | 0.4099 ± 0.0392*    | 39.08 ± 3.69*    | 78.53 ± 7.55*     |
+| TransUNet               | 0.7012 ± 0.0514*    | 0.6288 ± 0.0411*    | 21.33 ± 4.12*    | 62.45 ± 5.18*     |
+| Swin-UNet               | 0.6940 ± 0.0822*    | 0.6380 ± 0.0469*    | 24.59 ± 3.54*    | 68.29 ± 4.83*     |
+| SAM-Med2D (Box)         | 0.7125 ± 0.1245*    | 0.6110 ± 0.1320*    | 18.25 ± 6.44*    | 60.14 ± 12.41*    |
+| SAM-Med2D (Point)       | 0.7088 ± 0.1311*    | 0.6045 ± 0.1385*    | 19.01 ± 7.12*    | 61.08 ± 13.95*    |
+| Qwen3-VL + SAM          | 0.7314 ± 0.1050*    | 0.6274 ± 0.1190*    | 16.56 ± 7.92*    | 58.45 ± 15.22*    |
 | **SpinalSAM-R1 (Ours)** | **0.7650 ± 0.1641** | **0.6415 ± 0.1688** | **14.41 ± 5.79** | **55.72 ± 21.40** |
 
 ---
@@ -160,5 +157,3 @@ Thanks to the developers of SAM, DeepSeek-R1, PyQt5, and open-source contributor
 
 *Enjoy using SpinalSAM-R1!*
 
-
-```
